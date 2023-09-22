@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import image from "../../assets/logo.png"
 import { Link } from "react-router-dom";
 import useOnlineStatue from "../utils/useOnlineStatue";
+import UserContext from "../utils/userContext";
 const Header = () => {
 
     const [btnState, setBtnState] = useState("Login")
     
     const onlineStatus = useOnlineStatue();
+
+    const {loggedInUser} = useContext(UserContext);
 
     return(
         <div className="flex items-center justify-between shadow-lg mb-2">
@@ -33,6 +36,7 @@ const Header = () => {
                     <button className="bg-slate-900 text-white px-4 py-2" onClick={() => {
                        btnState === "Login" ? setBtnState("Logout"): setBtnState("Login")
                     }}>{btnState}</button>
+                    <li>{loggedInUser}</li>
                 </ul>
             </div>
         </div>
