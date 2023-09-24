@@ -3,6 +3,7 @@ import image from "../../assets/logo.png"
 import { Link } from "react-router-dom";
 import useOnlineStatue from "../utils/useOnlineStatue";
 import UserContext from "../utils/userContext";
+import { useSelector } from "react-redux";
 const Header = () => {
 
     const [btnState, setBtnState] = useState("Login")
@@ -10,6 +11,9 @@ const Header = () => {
     const onlineStatus = useOnlineStatue();
 
     const {loggedInUser} = useContext(UserContext);
+
+    const cartItems = useSelector((store) => store.cart.items);
+    console.log(cartItems)
 
     return(
         <div className="flex items-center justify-between shadow-lg mb-2">
@@ -32,7 +36,9 @@ const Header = () => {
                     <li>
                         <Link to="/contact">Contact Us</Link>
                     </li>
-                    <li>Cart</li>
+                    <li className="font-bold text-xl">
+                        <Link to="/cart">Cart - ({cartItems.length} items)</Link>
+                    </li>
                     <button className="bg-slate-900 text-white px-4 py-2" onClick={() => {
                        btnState === "Login" ? setBtnState("Logout"): setBtnState("Login")
                     }}>{btnState}</button>
