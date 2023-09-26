@@ -8,6 +8,17 @@ const cartSlice = createSlice({
     },
     reducers: {
         addItem : (state, action) => {
+
+            //vanila Redux => DON'T MUTATE STATE, returnung was mandatory
+            // const newState = {...state};
+            // newState.items.push(action.payload);
+            // return newState;
+
+
+            //IMMER LIBRARY -> It find the difference between the origional state, the mutated state and that gives us back the new state which is an immutable state which is the new copy of the state redux toolkit usese immer as this
+            
+            //Redux Toolkit uses IMMER BTS
+            //We HAVE To Mutate the State
             state.items.push(action.payload);
         },
         removeItem : (state) => {
@@ -15,6 +26,8 @@ const cartSlice = createSlice({
         },
         clearCart : (state) => {
             state.items.length = 0;
+            //OR
+            // return{ items: [] };
         },
     },
 });
